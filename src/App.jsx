@@ -144,7 +144,7 @@ function Reviews() {
   const [error, setError]     = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/reviews')
+    fetch('/api/reviews')
       .then(r => r.json())
       .then(d => { setData(d); setLoading(false); })
       .catch(() => { setError(true); setLoading(false); });

@@ -4,7 +4,7 @@ import cors from 'cors';
 import fetch from 'node-fetch';
 
 const app = express();
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:4173'] }));
+app.use(cors());
 
 const API_KEY  = process.env.GOOGLE_API_KEY;
 const PLACE_ID = process.env.PLACE_ID;
@@ -21,5 +21,10 @@ app.get('/api/reviews', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Reviews proxy running on http://localhost:${PORT}`));
+export default app;
+
+const PORT = globalThis?.process?.env?.PORT || 3001;
+// eslint-disable-next-line no-undef
+if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => console.log(`Reviews proxy running on http://localhost:${PORT}`));
+}
